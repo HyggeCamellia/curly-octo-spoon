@@ -11,3 +11,8 @@ git status
 git add .
 git commit -a -m beizhi
 git push
+
+# 解释
+react - router - dom
+会根据当前的路由配置，渲染出对应的组件，从而实现页面的切换和导航功能。
+可以一个简单的导航功能，包括首页和关于页面的切换。用户点击导航链接时，会根据不同的路径渲染对应的组件。
