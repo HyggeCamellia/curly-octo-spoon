@@ -1,17 +1,24 @@
 import React from 'react';
-import SysPage from './SysPage';
-import MyTitle from './SysPage/MyTitle';
-import SysPage2 from './SysPage2';
+import { BrowserRouter as Router, Routes, Route } from 'react-router-dom';
+import Jisuanqi from './Wuyuxuan/jisuanqi';
+import Sidebar from './SysPage2/Sidebar';
 
 const App = () => {
+  const menuItems = [
+    { label: '吴雨轩', link: '/jisuanqi' },
+  ];
 
   return (
-    <>
-    <SysPage2></SysPage2>
-    </>
+    <Router>
+      <div>
+        <Sidebar title="菜单" menuItems={menuItems} />
+        <Routes>
+          <Route path="/" element={<Jisuanqi />} />
+          <Route path="/jisuanqi" element={<Jisuanqi />} />
+        </Routes>
+      </div>
+    </Router>
   );
-}
+};
 
 export default App;
-
-

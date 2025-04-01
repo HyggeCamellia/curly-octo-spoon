@@ -1,6 +1,7 @@
 import React from 'react';
 import MyTitle from './MyTitle';
 import Sidebar from './Sidebar';
+import Jisuanqi from '../Wuyuxuan/jisuanqi';
 
 const SysPage2 = () => {
   // 定义左侧栏的标题和内容
@@ -8,7 +9,7 @@ const SysPage2 = () => {
 
   // 定义动态菜单项数据
   const menuItems = [
-    { label: "首页", link: "#home" },
+    { label: "吴雨轩", link: "#jisuanqi" },
     { label: "关于我们", link: "#about" },
     { label: "服务", link: "#services" },
     { label: "联系我们", link: "#contact" },
@@ -21,8 +22,7 @@ const SysPage2 = () => {
         <Sidebar title={sidebarTitle} menuItems={menuItems} />
         <div className="flex-1 bg-gray-100 p-4 overflow-auto">
           <div className='flex flex-row'>
-              成员组件区
-
+              
           </div>
         </div>
       </div>

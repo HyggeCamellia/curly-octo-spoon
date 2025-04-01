@@ -1,30 +1,31 @@
 import React from 'react';
+import { Link } from 'react-router-dom';
 
-// 定义 Sidebar 组件的属性类型
-interface SidebarProps {
-  title: string;    // 标题，类型为 string
-  content: string;  // 内容，类型为 string
+interface SidebarProps2 {
+    title: string;
+    menuItems: { label: string; link: string }[];
 }
 
-const Sidebar = ({ title, content }:SidebarProps) => {
-  return (
-    <div className='flex w-full  h-screen bg-slate-200'>
-      <div className='w-60 bg-gray-800 text-white p-4'>
-        <h2 className='text-xl'>{title}</h2> 
-        <p>{content}</p>
-      </div>
-    </div>
-  );
-}
+const Sidebar = (props: SidebarProps2) => {
+    const { title, menuItems } = props;
 
-export default Sidebar;
+    return (
+        <div className="flex bg-gray-800 text-white p-4 w-full">
+            <div className="flex flex-row items-center w-full">
+                <div className="text-sm font-bold mr-4">{title}</div>
+                <ul className="flex space-x-4">
+                    {menuItems.map((item, index) => (
+                        <li key={index}>
+                            <Link to={item.link} className="text-blue-400 hover:underline">
+                                {item.label}
+                            </Link>
+                        </li>
+                    ))}
+                </ul>
+            </div>
+        </div>
+    );
+};
 
-
-
-/**
- * 1.   h-full : 
- *      它将元素的高度设置为父元素的高度，意味着只有当父元素有明确的高度时，
- *      h-full 才能起作用。如果父元素的高度没有设置，h-full 就不会生效，子元素的高度会被忽略或者默认为 auto。
- * 2.  h-screen :
- *      是基于 视口的高度（即浏览器窗口的高度），它不依赖于父元素的高度。
- */
+export default Sidebar;    
+    

@@ -4,7 +4,7 @@ import React, { useState } from 'react';
 const MyTitle = () => {
 
     
-    const titleText = "区块链专业社区团队"
+    const titleText = "第二组作品"
     return (
         <div className='flex w-full bg-slate-100 justify-center'>
             <div className=' bg-pink-200 w-80 h-10 text-2xl justify-center text-center'>
