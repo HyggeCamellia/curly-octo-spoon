@@ -1,7 +1,7 @@
 import React from 'react';
 import MyTitle from './MyTitle';
 import Sidebar from './Sidebar';
-import Jisuanqi from '../Wuyuxuan/jisuanqi';
+import Jisuanqi from '../Wuyuxuan/shizhong';
 
 const SysPage2 = () => {
   // 定义左侧栏的标题和内容

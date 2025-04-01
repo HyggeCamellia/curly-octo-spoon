@@ -3,6 +3,7 @@ import { Link } from 'react-router-dom';
 
 interface SidebarProps2 {
     title: string;
+    
     menuItems: { label: string; link: string }[];
 }
 

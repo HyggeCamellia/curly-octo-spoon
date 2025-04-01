@@ -1,6 +1,6 @@
 import { useState, useEffect } from 'react';
 
-export default function Jisuanqi() {
+export default function shizhong() {
   const [time, setTime] = useState<Date>(new Date());
   const [is12HourFormat, setIs12HourFormat] = useState(false);
 
