@@ -1,10 +1,10 @@
-import { useState } from 'react';
+import { useState } from'react';
 
 type Task = {
   id: string;
   title: string;
   description: string;
-  priority: 'low' | 'medium' | 'high';
+  priority: 'low' |'medium' | 'high';
   createdAt: Date;
 };
 
@@ -31,7 +31,7 @@ export default function TaskBoard() {
           id: '2',
           title: '研究新技术',
           description: '了解React 18的新特性',
-          priority: 'medium',
+          priority:'medium',
           createdAt: new Date(),
         },
       ],
@@ -67,7 +67,7 @@ export default function TaskBoard() {
   const [newTask, setNewTask] = useState({
     title: '',
     description: '',
-    priority: 'medium' as 'low' | 'medium' | 'high',
+    priority:'medium' as 'low' |'medium' | 'high',
   });
 
   const [draggedTask, setDraggedTask] = useState<{ task: Task; sourceColumnId: string } | null>(
@@ -85,15 +85,15 @@ export default function TaskBoard() {
       createdAt: new Date(),
     };
 
-    setColumns(
-      columns.map((column) =>
-        column.id === columnId
-          ? { ...column, tasks: [...column.tasks, newTaskObj] }
-          : column
+    setColumns((prevColumns) =>
+      prevColumns.map((col) =>
+        col.id === columnId
+         ? {...col, tasks: [...col.tasks, newTaskObj]}
+          : col
       )
     );
 
-    setNewTask({ title: '', description: '', priority: 'medium' });
+    setNewTask({ title: '', description: '', priority:'medium' });
   };
 
   const handleDragStart = (task: Task, columnId: string) => {
@@ -107,53 +107,34 @@ export default function TaskBoard() {
   const handleDrop = (targetColumnId: string) => {
     if (!draggedTask) return;
 
-    if (draggedTask.sourceColumnId === targetColumnId) {
-      setDraggedTask(null);
-      return;
-    }
-
     setColumns((prevColumns) => {
-      // 从源列移除任务
-      const sourceColumnIndex = prevColumns.findIndex(
-        (col) => col.id === draggedTask.sourceColumnId
-      );
-      const sourceColumn = prevColumns[sourceColumnIndex];
-      const updatedSourceTasks = sourceColumn.tasks.filter(
-        (task) => task.id !== draggedTask.task.id
-      );
-
-      // 添加到目标列
-      const targetColumnIndex = prevColumns.findIndex(
-        (col) => col.id === targetColumnId
-      );
-      const targetColumn = prevColumns[targetColumnIndex];
-      const updatedTargetTasks = [...targetColumn.tasks, draggedTask.task];
-
-      return prevColumns.map((column, index) => {
-        if (index === sourceColumnIndex) {
-          return { ...column, tasks: updatedSourceTasks };
+      return prevColumns.map((col) => {
+        if (col.id === draggedTask.sourceColumnId) {
+          return {
+           ...col,
+            tasks: col.tasks.filter((task) => task.id!== draggedTask.task.id),
+          };
         }
-        if (index === targetColumnIndex) {
-          return { ...column, tasks: updatedTargetTasks };
+        if (col.id === targetColumnId) {
+          return {
+           ...col,
+            tasks: [...col.tasks, draggedTask.task],
+          };
         }
-        return column;
+        return col;
       });
     });
 
     setDraggedTask(null);
   };
 
-  const getPriorityColor = (priority: 'low' | 'medium' | 'high') => {
-    switch (priority) {
-      case 'high':
-        return 'bg-red-100 text-red-800';
-      case 'medium':
-        return 'bg-yellow-100 text-yellow-800';
-      case 'low':
-        return 'bg-green-100 text-green-800';
-      default:
-        return 'bg-gray-100 text-gray-800';
-    }
+  const getPriorityColor = (priority: 'low' |'medium' | 'high') => {
+    const colorMap = {
+      high: 'bg-red-100 text-red-800',
+      medium: 'bg-yellow-100 text-yellow-800',
+      low: 'bg-green-100 text-green-800',
+    };
+    return colorMap[priority] || 'bg-gray-100 text-gray-800';
   };
 
   return (
@@ -170,7 +151,7 @@ export default function TaskBoard() {
             <input
               type="text"
               value={newTask.title}
-              onChange={(e) => setNewTask({ ...newTask, title: e.target.value })}
+              onChange={(e) => setNewTask({...newTask, title: e.target.value })}
               className="w-full p-2 border border-gray-300 rounded-md"
               placeholder="输入任务标题"
             />
@@ -184,7 +165,7 @@ export default function TaskBoard() {
               onChange={(e) =>
                 setNewTask({
                   ...newTask,
-                  priority: e.target.value as 'low' | 'medium' | 'high',
+                  priority: e.target.value as 'low' |'medium' | 'high',
                 })
               }
               className="w-full p-2 border border-gray-300 rounded-md"
@@ -210,7 +191,7 @@ export default function TaskBoard() {
           <textarea
             value={newTask.description}
             onChange={(e) =>
-              setNewTask({ ...newTask, description: e.target.value })
+              setNewTask({...newTask, description: e.target.value })
             }
             className="w-full p-2 border border-gray-300 rounded-md"
             placeholder="输入任务描述"
@@ -239,7 +220,7 @@ export default function TaskBoard() {
                   key={task.id}
                   draggable
                   onDragStart={() => handleDragStart(task, column.id)}
-                  className="bg-white p-4 rounded-lg shadow-sm border-l-4 border-blue-500 hover:shadow-md transition-shadow cursor-move"
+                  className={`bg-white p-4 rounded-lg shadow-sm border-l-4 ${getPriorityColor(task.priority)} hover:shadow-md transition-shadow cursor-move`}
                 >
                   <div className="flex justify-between items-start mb-2">
                     <h3 className="font-medium text-lg">{task.title}</h3>
@@ -249,8 +230,8 @@ export default function TaskBoard() {
                       )}`}
                     >
                       {task.priority === 'high'
-                        ? '高'
-                        : task.priority === 'medium'
+                       ? '高'
+                        : task.priority ==='medium'
                         ? '中'
                         : '低'}
                     </span>
